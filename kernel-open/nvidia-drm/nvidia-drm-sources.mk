@@ -107,5 +107,6 @@ NV_CONFTEST_TYPE_COMPILE_TESTS += drm_format_info_has_is_yuv
 NV_CONFTEST_TYPE_COMPILE_TESTS += drm_driver_has_gem_prime_mmap
 NV_CONFTEST_TYPE_COMPILE_TESTS += drm_output_poll_changed
 NV_CONFTEST_TYPE_COMPILE_TESTS += drm_driver_has_date
+NV_CONFTEST_TYPE_COMPILE_TESTS += drm_connector_helper_funcs_mode_valid_has_int_ret_type
 NV_CONFTEST_TYPE_COMPILE_TESTS += drm_connector_helper_funcs_mode_valid_has_const_mode_arg
 NV_CONFTEST_TYPE_COMPILE_TESTS += drm_fb_create_takes_format_info

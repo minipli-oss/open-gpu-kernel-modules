@@ -4919,6 +4919,38 @@ compile_test() {
             compile_check_conftest "$CODE" "NV_DRM_DRIVER_HAS_DATE" "" "types"
         ;;
 
+        drm_connector_helper_funcs_mode_valid_has_int_ret_type)
+            #
+            # Determine if the return type is 'int' for
+            # drm_connector_helper_funcs::mode_valid.
+            #
+            # It was changed to 'enum drm_mode_status' by commit 0993f1d0d8a1
+            # ("drm: Make the connector mode_valid() vfunc return a
+            # drm_mode_status enum") in v3.14.
+            #
+            CODE="
+            #include <drm/drm_atomic_helper.h>
+
+            #ifndef __same_type
+            #define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
+            #endif
+
+            /* BUILD_BUG_ON() from <linux/kernel.h> isn't working */
+            #define CONF_BUILD_BUG_ON(cond) \
+                char conf_bug_on_trigger[0 - !!(cond)]
+
+            /* We exploit the fact, that 'int' and 'enum' are compatible but
+             * 'enum e1' and 'enum e2' are not to cause a build error if the
+             * return type of drm_connector_helper_funcs::mode_valid is an enum.
+             */
+            enum conftest_enum { CONFTEST = -1 } conftest_enum;
+            const struct drm_connector_helper_funcs conftest_func;
+            CONF_BUILD_BUG_ON(!__same_type(conftest_func.mode_valid(NULL, NULL), conftest_enum));
+            "
+
+            compile_check_conftest "$CODE" "NV_DRM_CONNECTOR_HELPER_FUNCS_MODE_VALID_HAS_INT_RET_TYPE" "" "types"
+        ;;
+
         drm_connector_helper_funcs_mode_valid_has_const_mode_arg)
             #
             # Determine if the 'mode' pointer argument is const in

@@ -310,11 +310,16 @@ static int nv_drm_connector_get_modes(struct drm_connector *connector)
     return count;
 }
 
-static int nv_drm_connector_mode_valid(struct drm_connector    *connector,
-#if defined(NV_DRM_CONNECTOR_HELPER_FUNCS_MODE_VALID_HAS_CONST_MODE_ARG)
-                                       const struct drm_display_mode *mode)
+#ifdef NV_DRM_CONNECTOR_HELPER_FUNCS_MODE_VALID_HAS_INT_RET_TYPE
+static int
 #else
-                                       struct drm_display_mode *mode)
+static enum drm_mode_status
+#endif
+nv_drm_connector_mode_valid(struct drm_connector    *connector,
+#if defined(NV_DRM_CONNECTOR_HELPER_FUNCS_MODE_VALID_HAS_CONST_MODE_ARG)
+                            const struct drm_display_mode *mode)
+#else
+                            struct drm_display_mode *mode)
 #endif
 {
     struct drm_device *dev = connector->dev;
