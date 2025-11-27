@@ -35,7 +35,7 @@
 #include "displayport/displayport.h"
 #include "displayport/displayport2x.h"
 #include "nvctassert.h"
-#include <stddef.h>
+#include <nv-stddef.h>
 
 /* ------------------------ Macros ----------------------------------------- */
 
