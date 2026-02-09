@@ -33,6 +33,7 @@
 #include <class/cl9097.h>
 #include <class/cla06fsubch.h>
 
+#define XZ_INTERNAL_CRC32 1
 #include <xz.h>
 
 #if NV_PUSH_ALLOW_FLOAT
