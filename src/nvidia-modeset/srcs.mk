@@ -238,3 +238,5 @@ SHADERS += ampere
 SHADERS += hopper
 SHADERS += blackwell
 SHADERS += gb20x
+
+LINKER_SCRIPT := nv-modeset-kernel.ld
