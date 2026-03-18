@@ -35,4 +35,12 @@
   #include <stddef.h>       // NULL
 #endif
 
+#ifndef __DECLARE_FLEX_ARRAY
+  #ifdef __cplusplus
+    #define __DECLARE_FLEX_ARRAY(T, field) T field[0]
+  #else
+    #define __DECLARE_FLEX_ARRAY(T, field) T field[]
+  #endif
+#endif
+
 #endif // _NV_STDDEF_H_
