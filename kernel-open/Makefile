@@ -69,13 +69,15 @@ else
     endif
   endif
 
-  # RANDSTRUCT is incompatible with how we build the OS-agnostic part, leading
-  # to calling the wrong callback functions from pure *ops structures at
-  # runtime.
-  ranstruct_enabled=$(firstword $(shell . $(KERNEL_OUTPUT)/.config; \
-                      echo "$$CONFIG_RANDSTRUCT$$CONFIG_GCC_PLUGIN_RANDSTRUCT"))
-  ifneq ($(ranstruct_enabled),)
-    $(error RANDSTRUCT enabled kernel is incompatible with binary objects!))
+  ifneq ($(USE_KBUILD),1)
+    # RANDSTRUCT is incompatible with how we build the OS-agnostic part, leading
+    # to calling the wrong callback functions from pure *ops structures at
+    # runtime.
+    ranstruct_enabled=$(firstword $(shell . $(KERNEL_OUTPUT)/.config; \
+                        echo "$$CONFIG_RANDSTRUCT$$CONFIG_GCC_PLUGIN_RANDSTRUCT"))
+    ifneq ($(ranstruct_enabled),)
+      $(error RANDSTRUCT enabled kernel is incompatible with binary objects!))
+    endif
   endif
 
   CC ?= cc
