@@ -44,6 +44,10 @@
 #include "dp_deviceimpl.h"
 #include "./dptestutil/dp_testmessage.h"
 
+#ifndef DP_OPTION_AUTO_ENABLE_MST_STREAM_ENCR
+  #define DP_OPTION_AUTO_ENABLE_MST_STREAM_ENCR 0
+#endif
+
 // HDCP abort codes
 #define    HDCP_FLAGS_ABORT_DEVICE_REVOKED     0x00000800 // Abort due to a revoked device in DP1.2 topology
 #define    HDCP_FLAGS_ABORT_DEVICE_INVALID     0x00080000 // Abort due to an invalid device in DP1.2 topology
