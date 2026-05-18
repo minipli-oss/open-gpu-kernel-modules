@@ -57,7 +57,8 @@
   #ifdef __cplusplus
     #define __DECLARE_FLEX_ARRAY(T, field) T field[0]
   #else
-    #define __DECLARE_FLEX_ARRAY(T, field) T field[]
+    #define __DECLARE_FLEX_ARRAY(T, field) \
+      struct { struct { } __empty_ ## field; T field[]; }
   #endif
 #endif
 
