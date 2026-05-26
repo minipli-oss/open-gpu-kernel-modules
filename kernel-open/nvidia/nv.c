@@ -538,7 +538,7 @@ nvlink_drivers_init(void)
     return rc;
 }
 
-int nv_init_page_pools(void);
+NV_STATUS nv_init_page_pools(void);
 void nv_destroy_page_pools(void);
 
 static void
@@ -560,6 +560,7 @@ static int
 nv_module_state_init(nv_stack_t *sp)
 {
     int rc;
+    NV_STATUS status;
     nv_state_t *nv = NV_STATE_PTR(&nv_ctl_device);
 
     nv->os_state = (void *)&nv_ctl_device;
@@ -588,9 +589,10 @@ nv_module_state_init(nv_stack_t *sp)
         goto exit;
     }
 
-    rc = nv_init_pat_support(sp);
-    if (rc < 0)
+    status = nv_init_pat_support(sp);
+    if (status != NV_OK)
     {
+        rc = status == NV_ERR_NO_MEMORY ? -ENOMEM : -EINVAL;
         nv_kthread_q_stop(&nv_deferred_close_kthread_q);
         nv_kthread_q_stop(&nv_kthread_q);
         goto exit;
